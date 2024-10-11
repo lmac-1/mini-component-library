@@ -21,7 +21,7 @@ const STYLES = {
   },
 };
 
-const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
+const IconInput = ({ label, icon, width = 250, size, ...delegated }) => {
   const styles = STYLES[size];
 
   if (!styles) {
@@ -39,7 +39,7 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
         />
       </IconWrapper>
       <TextInput
-        placeholder={placeholder}
+        {...delegated}
         style={{
           '--width': `${width}px`,
           '--height': `${styles.height / 16}rem`,
@@ -78,10 +78,7 @@ const TextInput = styled.input`
   font-size: var(--font-size);
   font-weight: 700;
   color: inherit;
-
-  &:focus {
-    outline-offset: 2px;
-  }
+  outline-offset: 2px;
 
   ::placeholder {
     color: ${COLORS.gray500};
