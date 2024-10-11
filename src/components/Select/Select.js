@@ -25,10 +25,12 @@ const Select = ({ label, value, onChange, children }) => {
 
 const NativeSelect = styled.select`
   position: absolute;
-  appearance: none;
   height: 100%;
   width: 100%;
   opacity: 0;
+  /* Allow the select to span the full height in Safari */
+  appearance: none;
+  -webkit-appearance: none;
 `;
 const Wrapper = styled.div`
   position: relative;
@@ -49,7 +51,8 @@ const CustomSelect = styled.div`
   }
 
   ${NativeSelect}:focus + & {
-    outline: 2px solid #4374cb;
+    outline: 1px dotted #212121; /* this is a fallback in case the other property doesn't work */
+    outline: 5px auto -webkit-focus-ring-color;
   }
 `;
 
