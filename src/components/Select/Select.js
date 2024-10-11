@@ -9,10 +9,59 @@ const Select = ({ label, value, onChange, children }) => {
   const displayedValue = getDisplayedValue(value, children);
 
   return (
-    <select value={value} onChange={onChange}>
-      {children}
-    </select>
+    <Wrapper>
+      <NativeSelect value={value} onChange={onChange}>
+        {children}
+      </NativeSelect>
+      <CustomSelect>
+        {displayedValue}
+        <IconWrapper style={{ '--size': 24 + 'px' }}>
+          <Icon id="chevron-down" strokeWidth={1} size={24} />
+        </IconWrapper>
+      </CustomSelect>
+    </Wrapper>
   );
 };
+
+const NativeSelect = styled.select`
+  position: absolute;
+  appearance: none;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+`;
+const Wrapper = styled.div`
+  position: relative;
+  width: max-content;
+`;
+
+const CustomSelect = styled.div`
+  background-color: ${COLORS.transparentGray15};
+  color: ${COLORS.gray700};
+  font-size: ${16 / 16}rem;
+  padding: 12px 16px;
+  padding-right: 52px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  ${NativeSelect}:hover + & {
+    color: ${COLORS.black};
+  }
+
+  ${NativeSelect}:focus + & {
+    outline: 2px solid #4374cb;
+  }
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0px;
+  margin: auto;
+  width: var(--size);
+  height: var(--size);
+  pointer-events: none;
+`;
 
 export default Select;
